@@ -2,7 +2,24 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const connectDB = require('./config/db');
+
+
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.DB_URI, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true
+        })
+        console.log('MongoDB is connected')
+
+    }
+    catch (err) {
+        console.log(`error: ${err.message}`)
+    }
+}
+
+// const connectDB = require('./config/db');
 
 dotenv.config({path: './config/config.env'})
 const logRoutes = require('./routes/logRoutes')
