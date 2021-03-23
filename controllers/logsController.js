@@ -20,7 +20,7 @@ const getLogs = async (req, res) => {
 
 const searchLogs = async (req, res) => {
     try {
-        // let query = req.params.query;
+     
         const logs = await Log.customFilter(req.query)
 
         res.status(200).json({

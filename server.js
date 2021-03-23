@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.DB_URI, {
+        await mongoose.connect(process.env.DB_URI, {
             useNewUrlParser: true,
             useCreateIndex: true,
             useUnifiedTopology: true
@@ -19,7 +19,6 @@ const connectDB = async () => {
     }
 }
 
-// const connectDB = require('./config/db');
 
 dotenv.config({path: './config/config.env'})
 const logRoutes = require('./routes/logRoutes')
