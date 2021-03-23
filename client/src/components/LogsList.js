@@ -19,13 +19,12 @@ const LogsList = ({logs, getLogs, loading}) => {
             <ul className="collection with-header">
                 <li className="collection-header center-align"><h4>Выполненные задачи</h4></li>
                 {loading && <Preloader/>}
-                {!loading && logs.length === 0 ? (
-                    <p>На текущий момент нет выполненных задач...</p>
-                ) : logs.map(log => {
+                {!loading && logs.length ? logs.map(log => {
                         return <LogItem key={log._id} log={log}/>
-                    })
+                    }) : (
+                        <p style={{textAlign:'center'}}>На текущий момент нет выполненных задач...</p>
+                    )
                  } 
-        
             </ul>
         </div>
 
@@ -41,5 +40,6 @@ const mapStateToProps = (state) => {
     }
 
 }
+
 
 export default connect(mapStateToProps, {getLogs})(LogsList)
