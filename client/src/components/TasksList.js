@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
-import LogItem from './LogItem';
+import TaskItem from './TaskItem';
 import 'materialize-css/dist/css/materialize.min.css';
 import { connect } from 'react-redux';
-import { getLogs, setLoading } from '../actions/LogActions';
+import { getTasks } from '../actions/TaskActions';
 import Preloader from './Preloader';
 
-const LogsList = ({logs, getLogs, loading}) => {
+const TasksList = ({tasks, getTasks, loading}) => {
 
     useEffect(() => {
-        getLogs()
+        getTasks()
         // eslint-disable-next-line
     }, [])
    
@@ -19,8 +19,8 @@ const LogsList = ({logs, getLogs, loading}) => {
             <ul className="collection with-header">
                 <li className="collection-header center-align"><h4>Выполненные задачи</h4></li>
                 {loading && <Preloader/>}
-                {!loading && logs.length ? logs.map(log => {
-                        return <LogItem key={log._id} log={log}/>
+                {!loading && tasks.length ? tasks.map(task => {
+                        return <TaskItem key={task._id} task={task}/>
                     }) : (
                         <p style={{textAlign:'center'}}>На текущий момент нет выполненных задач...</p>
                     )
@@ -35,11 +35,11 @@ const LogsList = ({logs, getLogs, loading}) => {
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.log.logs,
-        loading: state.log.loading
+        tasks: state.task.tasks,
+        loading: state.task.loading
     }
 
 }
 
 
-export default connect(mapStateToProps, {getLogs})(LogsList)
+export default connect(mapStateToProps, {getTasks})(TasksList)

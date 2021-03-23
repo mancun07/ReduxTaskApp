@@ -1,40 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {addLog} from '../actions/LogActions';
+import {updateTask, setCurrent} from '../actions/TaskActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const AddLogModal = ({addLog, techs}) => {
+const EditTaskModal = ({current, updateTask, techs}) => {
     const [message, setMessage] = useState('')
     const [tech, setTech] = useState('')
     const [attention, setAttention] = useState(false)
-    console.log(techs)
+
+    useEffect(() => {
+        if (current) {
+            setMessage(current.message);
+            setTech(current.tech);
+            setAttention(current.attention);
+        }
+      }, [current])  
+
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (message === '' || tech === '') {
-            M.toast({ html: 'Первые два поля должны быть заполнены!'});
+            M.toast({ html: 'Первые два поля должны быть заполнены! Попробуйте еще раз!'});
         } else {
-            addLog({message, tech, attention})
+            updateTask({
+                message, 
+                tech,
+                attention,
+                _id: current._id
+            })
             setMessage('');
             setTech('');
             setAttention(false);
-            M.toast({ html: 'Задача успешно добавлена'});
+            M.toast({ html: 'Задача успешно обновлена!'});
         }
 
     }
 
+
     return (
-    <div id="modal1" className="modal">
+    <div id="editModal" className="modal">
         <form onSubmit={onSubmit}>
         <div className="modal-content">
-            <h4 className="center-align">Выполненная задача</h4>
+            <h4 className="center-align">Внести изменение</h4>
             <div className="input-field col s6">
                 <input id="log" type="text" value={message} className="validate" onChange={e => setMessage(e.target.value)}/>
-                <label htmlFor="log">Внесите задачу</label>
             </div>
 
-            <select className="browser-default" name="tech" value={tech} onChange={e => setTech(e.target.value)}>
-                    <option value="" disabled>Выберите сотрудника</option>
+            <select value={tech} onChange={e => setTech(e.target.value)}>
+            <option value="" disabled>Выберите сотрудника</option>
                 {techs !== null && techs.map(t => {
                      return <option key={t._id} >{t.firstName} {t.lastName}</option>
                     })}
@@ -51,7 +64,7 @@ const AddLogModal = ({addLog, techs}) => {
  
 
         <div className="modal-footer">
-            <input type="submit" className="modal-close btn btn-flat green white-text" value="Добавить"/>
+            <input type="submit" className="modal-close btn btn-flat green white-text" value="Обновить"/>
         </div>
         </form>
     </div>
@@ -60,8 +73,9 @@ const AddLogModal = ({addLog, techs}) => {
 
 const mapStateToProps = (state) => {
     return {
+        current: state.task.current,
         techs: state.tech.techs
     }
 }
 
-export default connect(mapStateToProps, {addLog})(AddLogModal)
+export default connect(mapStateToProps, {updateTask, setCurrent})(EditTaskModal)

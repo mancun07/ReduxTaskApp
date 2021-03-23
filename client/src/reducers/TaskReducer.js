@@ -1,5 +1,5 @@
 const initialState = {
-    logs: [],
+    tasks: [],
     loading: false,
     current: null,
     err: null
@@ -8,40 +8,40 @@ const initialState = {
 const LogReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case 'GET_LOGS':
+        case 'GET_TASKS':
         return {
             ...state,
-            logs: action.payload,
+            tasks: action.payload,
             loading: false
         }
 
-        case 'SEARCH_LOGS':
+        case 'SEARCH_TASKS':
         return {
             ...state,
-            logs: action.payload,
+            tasks: action.payload,
             loading: false
         }
 
-        case 'ADD_LOG':
+        case 'ADD_TASK':
         return {
             ...state,
-            logs: [...state.logs, action.payload],
+            tasks: [...state.tasks, action.payload],
             loading: false
         }
 
-        case 'DELETE_LOG':
+        case 'DELETE_TASK':
         return  {
             ...state,
-            logs: state.logs.filter(log => {
+            tasks: state.tasks.filter(log => {
                 return log._id !== action.payload
             }),
             loading: false
         }
 
-        case 'UPDATE_LOG':
+        case 'UPDATE_TASK':
         return {
             ...state,
-            logs: state.logs.map(log => {
+            tasks: state.tasks.map(log => {
                 return log._id === action.payload._id ? action.payload : log
             }),
             loading: false

@@ -1,10 +1,10 @@
 
-export const getLogs = () => async dispatch => {
+export const getTasks = () => async dispatch => {
     try {
         dispatch({type: 'SET_LOADING'})
         const res = await fetch('/api/v1/logs');
         const data = await res.json();
-            dispatch({type: 'GET_LOGS', payload: data.data})
+            dispatch({type: 'GET_TASKS', payload: data.data})
    
     }
 
@@ -13,14 +13,14 @@ export const getLogs = () => async dispatch => {
     }
 }
 
-export const searchLogs = (text) => async dispatch => {
+export const searchTasks = (text) => async dispatch => {
 
         try {
             dispatch({type: 'SET_LOADING'})
             const res = await fetch(`/api/v1/logs?q=${text}`)
             const data = await res.json()
     
-            dispatch({type: 'SEARCH_LOGS', payload: data.data})
+            dispatch({type: 'SEARCH_TASKS', payload: data.data})
         }
     
         catch (err) {
@@ -28,22 +28,19 @@ export const searchLogs = (text) => async dispatch => {
         }
 }
 
-export const addLog = (newLog) => async dispatch => {
+export const addTask = (newLog) => async dispatch => {
     try {
         dispatch({type: 'SET_LOADING'})
         const res = await fetch('/api/v1/logs', {
             method: 'POST',
             body: JSON.stringify(newLog),
-            headers: {
-                // 'Access-Control-Allow-Origin': '*',
-                // Accept: 'application/json;odata.metadata=full',
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
+            
         })
 
         const data = await res.json();
 
-        dispatch({type: 'ADD_LOG', payload: data.data})
+        dispatch({type: 'ADD_TASK', payload: data.data})
     }
 
     catch (err) {
@@ -51,7 +48,7 @@ export const addLog = (newLog) => async dispatch => {
     }
 }
 
-export const updateLog = (log) => async dispatch => {
+export const updateTask = (log) => async dispatch => {
     try {
         dispatch({type: 'SET_LOADING'})
         const res = await fetch(`/api/v1/logs/${log._id}`, {
@@ -62,7 +59,7 @@ export const updateLog = (log) => async dispatch => {
 
         const data = await res.json();
 
-        dispatch({type: 'UPDATE_LOG', payload: data.data})
+        dispatch({type: 'UPDATE_TASK', payload: data.data})
     }
 
     catch (err) {
@@ -70,14 +67,14 @@ export const updateLog = (log) => async dispatch => {
     }
 }
 
-export const deleteLog = (id) => async dispatch => {
+export const deleteTask = (id) => async dispatch => {
     try {
         dispatch({type: 'SET_LOADING'})
         await fetch(`/api/v1/logs/${id}`, {
             method: 'DELETE'
         })
 
-        dispatch({type: 'DELETE_LOG', payload: id})
+        dispatch({type: 'DELETE_TASK', payload: id})
     }
 
     catch (err) {

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
-import LogReducer from './LogReducer'
+import TaskReducer from './TaskReducer'
 import TechReducer from './TechReducer'
 
 export default combineReducers({
-    log: LogReducer,
+    task: TaskReducer,
     tech: TechReducer
 })

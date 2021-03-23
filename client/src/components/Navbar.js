@@ -1,16 +1,16 @@
 import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-import {searchLogs} from '../actions/LogActions';
+import {searchTasks} from '../actions/TaskActions';
 import {connect} from 'react-redux';
 
 
-const Navbar = ({searchLogs}) => {
+const Navbar = ({searchTasks}) => {
     return (
         <nav>
         <div className="nav-wrapper indigo">
           <form>
             <div className="input-field">
-              <input id="search" type="search" onChange={(e) => searchLogs(e.target.value.trim())} placeholder="Поиск по задачам & сотрудникам"/>
+              <input id="search" type="search" onChange={(e) => searchTasks(e.target.value.trim())} placeholder="Поиск по задачам & сотрудникам"/>
               <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
               <i className="material-icons">close</i>
             </div>
@@ -20,4 +20,4 @@ const Navbar = ({searchLogs}) => {
     )
 }
 
-export default connect(null, {searchLogs})(Navbar)
+export default connect(null, {searchTasks})(Navbar)

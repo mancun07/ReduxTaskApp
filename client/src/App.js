@@ -1,9 +1,9 @@
-import AddLogModal from "./components/AddLogModal";
-import EditLogModal from "./components/EditLogModal";
+import AddTaskModal from "./components/AddTaskModal";
+import EditTaskModal from "./components/EditTaskModal";
 import TechListModal from "./components/TechListModal";
 import AddTechModal from "./components/AddTechModal";
 import ButtonSet from "./components/ButtonSet";
-import LogsList from "./components/LogsList";
+import TasksList from "./components/TasksList";
 import Navbar from "./components/Navbar";
 import { Provider } from 'react-redux';
 import store from './store';
@@ -16,10 +16,10 @@ function App() {
     <div className="App">
      <Navbar/>
      <div className="container">
-          <LogsList/>
+          <TasksList/>
           <ButtonSet/>
-          <AddLogModal/>
-          <EditLogModal/>
+          <AddTaskModal/>
+          <EditTaskModal/>
           <TechListModal/>
           <AddTechModal/>
      </div>
