@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {updateLog, setCurrent} from '../actions/LogActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const EditLogModal = ({current, updateLog, setCurrent, techs}) => {
+const EditLogModal = ({current, updateLog, techs}) => {
     const [message, setMessage] = useState('')
     const [tech, setTech] = useState('')
     const [attention, setAttention] = useState(false)
@@ -26,7 +26,6 @@ const EditLogModal = ({current, updateLog, setCurrent, techs}) => {
                 message, 
                 tech,
                 attention,
-                // date: new Date(),
                 _id: current._id
             })
             setMessage('');

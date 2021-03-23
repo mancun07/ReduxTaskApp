@@ -1,12 +1,11 @@
 
 export const getLogs = () => async dispatch => {
     try {
-        setLoading()
+        dispatch({type: 'SET_LOADING'})
         const res = await fetch('/api/v1/logs');
         const data = await res.json();
-        console.log(data)
-
-        dispatch({type: 'GET_LOGS', payload: data.data})
+            dispatch({type: 'GET_LOGS', payload: data.data})
+   
     }
 
     catch (err) {
@@ -17,7 +16,7 @@ export const getLogs = () => async dispatch => {
 export const searchLogs = (text) => async dispatch => {
 
         try {
-            setLoading(true)
+            dispatch({type: 'SET_LOADING'})
             const res = await fetch(`/api/v1/logs?q=${text}`)
             const data = await res.json()
     
@@ -31,13 +30,13 @@ export const searchLogs = (text) => async dispatch => {
 
 export const addLog = (newLog) => async dispatch => {
     try {
-        setLoading(true)
+        dispatch({type: 'SET_LOADING'})
         const res = await fetch('/api/v1/logs', {
             method: 'POST',
             body: JSON.stringify(newLog),
             headers: {
-                'Access-Control-Allow-Origin': '*',
-                Accept: 'application/json;odata.metadata=full',
+                // 'Access-Control-Allow-Origin': '*',
+                // Accept: 'application/json;odata.metadata=full',
                 'Content-Type': 'application/json'
             }
         })
@@ -54,7 +53,7 @@ export const addLog = (newLog) => async dispatch => {
 
 export const updateLog = (log) => async dispatch => {
     try {
-        setLoading(true)
+        dispatch({type: 'SET_LOADING'})
         const res = await fetch(`/api/v1/logs/${log._id}`, {
             method: 'PUT',
             body: JSON.stringify(log),
@@ -73,7 +72,7 @@ export const updateLog = (log) => async dispatch => {
 
 export const deleteLog = (id) => async dispatch => {
     try {
-        setLoading(true)
+        dispatch({type: 'SET_LOADING'})
         await fetch(`/api/v1/logs/${id}`, {
             method: 'DELETE'
         })
@@ -86,9 +85,14 @@ export const deleteLog = (id) => async dispatch => {
     }
 }
 
-export const setLoading = () => async dispatch => {
-        dispatch({type: 'SET_LOADING'})
-}
+// export const setLoading = () => async dispatch => {
+//      dispatch({type: 'SET_LOADING'})
+        
+// }     
+
+// export const setLoading = () => {
+//     dispatch({type: SET_LOADING});
+//   };
 
 export const setCurrent = (log) => {
     return {type: 'SET_CURRENT', payload: log}
