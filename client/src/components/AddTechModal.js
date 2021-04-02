@@ -3,6 +3,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { addTech } from "../actions/TechActions";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const AddTechModal = ({ addTech }) => {
   const [firstName, setFirstName] = useState("");
@@ -53,6 +54,10 @@ const AddTechModal = ({ addTech }) => {
       </form>
     </div>
   );
+};
+
+AddTechModal.propTypes = {
+  addTech: PropTypes.func.isRequired,
 };
 
 export default connect(null, { addTech })(AddTechModal);

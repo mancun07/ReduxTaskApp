@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addTask } from "../actions/TaskActions";
+import PropTypes from "prop-types";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 const AddTaskModal = ({ addTask, techs }) => {
@@ -84,6 +85,11 @@ const mapStateToProps = (state) => {
   return {
     techs: state.tech.techs,
   };
+};
+
+AddTaskModal.propTypes = {
+  addTask: PropTypes.func.isRequired,
+  techs: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, { addTask })(AddTaskModal);
